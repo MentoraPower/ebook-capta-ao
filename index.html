@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download</title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #000; }
+  </style>
+</head>
+<body>
+  <script>
+    (function () {
+      var FILE = "ebook-clientes.pdf";
+      var ua = navigator.userAgent || "";
+      var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+      function triggerDownload() {
+        // Android, desktop e navegadores que respeitam o atributo "download":
+        // salva direto no dispositivo sem abrir nada.
+        var a = document.createElement("a");
+        a.href = FILE;
+        a.setAttribute("download", FILE);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      if (isIOS) {
+        // iOS/Safari ignora o atributo "download": navega direto ao PDF,
+        // que abre no visualizador. O usuário salva pelo botão Compartilhar.
+        window.location.href = FILE;
+      } else {
+        triggerDownload();
+      }
+    })();
+  </script>
+</body>
+</html>
